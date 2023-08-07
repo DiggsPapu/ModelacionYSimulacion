@@ -15,4 +15,4 @@ N=50, 100, 1000, 10000.
 Nota: Favor cargar el programa y un pantallazo de la ejecución (no cargar sólo el link). El día de la entrega se presentará por cada grupo. Tomar en cuenta que no hay prórroga.
 ## Resultados
 ### Ejercicio 1
-
+![ModelacionYSimulacionEjercicio1](https://github.com/DiggsPapu/ModelacionYSimulacion/assets/84475020/25a97221-552c-4c33-91ed-5bad25139b68)
