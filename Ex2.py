@@ -32,7 +32,8 @@ for n in n_values:
         plt.legend()
         plt.xlabel("Valores")
         plt.ylabel("Densidad")
-        plt.show()
+        # plt.show()
+        plt.savefig(f"histogram_{n}_N_{N}.png")  # Save the figure as PNG
 
         # Función de distribución empírica y acumulada de N(0,1)
         plt.figure()
@@ -44,4 +45,5 @@ for n in n_values:
         plt.legend()
         plt.xlabel("Valores")
         plt.ylabel("Probabilidad acumulada")
-        plt.show()
+        plt.savefig(f"cdf_n_{n}_N_{N}.png")  # Save the figure as PNG
+        # plt.show()
