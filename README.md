@@ -16,3 +16,5 @@ Nota: Favor cargar el programa y un pantallazo de la ejecución (no cargar sólo
 ## Resultados
 ### Ejercicio 1
 ![ModelacionYSimulacionEjercicio1](https://github.com/DiggsPapu/ModelacionYSimulacion/assets/84475020/25a97221-552c-4c33-91ed-5bad25139b68)
+### Ejercicio 2
+![https://github.com/DiggsPapu/ModelacionYSimulacion/Lab2/cdf_n_20_N_50.png]
