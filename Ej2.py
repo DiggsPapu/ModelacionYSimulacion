@@ -3,9 +3,16 @@ import matplotlib.pyplot as plt
 
 # Función para generar variables aleatorias de una distribución discreta (Poisson) utilizando transformada inversa
 def generate_discrete_random_variable(lambda_value, n):
-    u = np.random.uniform(0, 1, n)
-    poisson_values = -np.log(u) / lambda_value
-    return np.floor(poisson_values).astype(int)
+    poisson_values = []
+    for _ in range(n):
+        x = 0
+        p = 1.0
+        while p > np.exp(-lambda_value):
+            u = np.random.uniform(0, 1)
+            p *= u
+            x += 1
+        poisson_values.append(x)
+    return np.array(poisson_values)
 
 # Función para generar variables aleatorias de una distribución continua (Exponencial) utilizando aceptación y rechazo
 def generate_continuous_random_variable(scale, n):
