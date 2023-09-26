@@ -1,9 +1,23 @@
 import numpy as np
 from sympy import symbols, diff, lambdify
 
+def gradient_descent_min(objective_grad, lr=0.001, max_iter=100000):
+    x = np.zeros(2)  # Inicializa x a un valor. Aquí, [0, 0] como ejemplo
+    for _ in range(max_iter):
+        grad = objective_grad(x)  # Calcula el gradiente en el punto actual
+        x = x - lr * grad  # Actualiza x usando el gradiente y la tasa de aprendizaje
+    return x
 
 
-def adam_optimizer_minimize(objective_grad, lr=0.01, beta1=0.9, beta2=0.999, epsilon=1e-8, max_iter=1000):
+def gradient_descent_max(objective_grad, lr=0.001, max_iter=100000):
+    x = np.zeros(2)  # Inicializa x a un valor. Aquí, [0, 0] como ejemplo
+    for _ in range(max_iter):
+        grad = -objective_grad(x)  # Calcula el gradiente en el punto actual
+        x = x - lr * grad  # Actualiza x usando el gradiente y la tasa de aprendizaje
+    return x
+
+
+def adam_optimizer_minimize(objective_grad, lr=0.0001, beta1=0.9, beta2=0.999, epsilon=1e-8, max_iter=1000):
     x = np.array([0.0, 0.0])
     m = np.zeros_like(x)
     v = np.zeros_like(x)
@@ -16,8 +30,8 @@ def adam_optimizer_minimize(objective_grad, lr=0.01, beta1=0.9, beta2=0.999, eps
         v = beta2 * v + (1 - beta2) * grad ** 2
         m_hat = m / (1 - beta1 ** t)
         v_hat = v / (1 - beta2 ** t)
-        x = x - lr * m_hat / (np.sqrt(v_hat) + epsilon)
-        
+        x = x - (lr * (m_hat / (np.sqrt(v_hat) + epsilon)))
+
     return x
 
 
@@ -29,12 +43,12 @@ def adam_optimizer_maximize(objective_grad, lr=0.01, beta1=0.9, beta2=0.999, eps
     
     for _ in range(max_iter):
         t += 1
-        grad = -objective_grad(x)  # Cambiamos el signo del gradiente para maximizar
+        grad = -objective_grad(x) 
         m = beta1 * m + (1 - beta1) * grad
         v = beta2 * v + (1 - beta2) * grad ** 2
         m_hat = m / (1 - beta1 ** t)
         v_hat = v / (1 - beta2 ** t)
-        x = x - lr * m_hat / (np.sqrt(v_hat) + epsilon)
+        x = x - (lr * (m_hat / (np.sqrt(v_hat) + epsilon)))
         
     return x
 
@@ -59,8 +73,9 @@ def inciso_a():
 
     objective_grad = lambda x: np.array(grad_func(x[0], x[1]))
 
-    x_opt = adam_optimizer_minimize(objective_grad)
+    x_opt = gradient_descent_min(objective_grad)
     print("Inciso A")
+    #print([10.00, 20.00])
     print(x_opt)
 
 ########################################################
@@ -83,7 +98,7 @@ def inciso_b():
 
     objective_grad = lambda x: np.array(grad_func(x[0], x[1]))
 
-    x_opt = adam_optimizer_maximize(objective_grad)
+    x_opt = gradient_descent_max(objective_grad)
     print("Inciso B")
     print(x_opt)
 ########################################################
@@ -106,7 +121,7 @@ def inciso_c():
 
     objective_grad = lambda x: np.array(grad_func(x[0], x[1]))
 
-    x_opt = adam_optimizer_maximize(objective_grad)
+    x_opt = gradient_descent_max(objective_grad)
     print("Inciso C")
     print(x_opt)
 
