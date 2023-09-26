@@ -1,5 +1,30 @@
 from pulp import *
 
+def minimizar2(variables, funcion_objetivo_coeficientes, restricciones_coeficientes, valores_restricciones):
+    # Definir el problema
+    problema = LpProblem("Problema_Primal", LpMinimize)
+    # Crear variables
+    var_dict = {var: LpVariable(var, lowBound=0) for var in variables}
+    # Definir la función objetivo
+    funcion_objetivo = sum(coef * var_dict[var] for coef, var in zip(funcion_objetivo_coeficientes, variables))
+    problema += funcion_objetivo
+    # Crear restricciones
+    for i, coeficientes in enumerate(restricciones_coeficientes):
+        restriccion = sum(coef * var_dict[var] for coef, var in zip(coeficientes, variables))
+        operador = ">=" if valores_restricciones[i] >= 0 else "<="  # Cambiar a ">=" si el valor es negativo
+        problema += restriccion >= valores_restricciones[i], f'Restriccion_{i} ({operador} {valores_restricciones[i]})'
+    # Mostrar el problema
+    print(problema)
+    # Resolver el problema
+    solution = problema.solve()
+    # Generar el optimo
+    assert solution == LpStatusOptimal
+    # Imprimir los valores optimos
+    for var in var_dict:
+        print('Valores optimos {}={}'.format(var_dict[var].name, var_dict[var].value()))    
+    # Devolver el valor óptimo de la maximización
+    print("Minimizacion: "+str(value(problema.objective)))
+
 def maximizar(variables, funcion_objetivo_coeficientes, restricciones_coeficientes, valores_restricciones):
     # Definir el problema
     problema = LpProblem("Problema_Primal", LpMaximize)
@@ -86,5 +111,5 @@ restricciones_coeficientes = [
     [2, -1, -5, 3]
 ]
 valores_restricciones = [10, 14, 5, 0]
-maximizar(variables, funcion_objetivo_coeficientes, restricciones_coeficientes, valores_restricciones)
-minimizar(variables, funcion_objetivo_coeficientes, restricciones_coeficientes, valores_restricciones)
+# maximizar(variables, funcion_objetivo_coeficientes, restricciones_coeficientes, valores_restricciones)
+minimizar2(variables, funcion_objetivo_coeficientes, restricciones_coeficientes, valores_restricciones)
