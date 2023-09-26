@@ -3,9 +3,9 @@ import random
 
 # Función de inicialización de individuos
 def initialize_individual():
-		x1 = random.uniform(0, 0)  # x1 está en el rango [0, 15]
-		x2 = random.uniform(0, 0)  # x2 está en el rango [0, 15]
-		return x1, x2
+		x1 = random.uniform(0, 1)  
+		x2 = random.uniform(0, 1)  
+		return x1,x2
 
 # Función de selección de padres (selección de torneo)
 def select_parents(population, fitness_scores):
@@ -18,9 +18,8 @@ def select_parents(population, fitness_scores):
 
 # Función de cruce (cruce en un punto)
 def crossover(parent1, parent2):
-		crossover_point = random.randint(0, 1)
-		child1 = (parent1[0], parent2[crossover_point])
-		child2 = (parent2[0], parent1[crossover_point])
+		child1 = (parent1[0], parent2[1])
+		child2 = (parent2[0], parent1[1])
 		return child1, child2
 
 # Función de mutación (mutación por cambio aleatorio)
@@ -37,15 +36,12 @@ def mutate(individual, mutation_prob):
 def genetic_algorithm(population_size, num_generations, mutation_probability, is_valid, fitness_function):
 	# Inicializar la población inicial
 	population = [initialize_individual() for _ in range(population_size)]
-	while len(population) < 0:
-		population = [initialize_individual() for _ in range(population_size)]
-
+	
 	# Bucle principal del algoritmo genético
 	for generation in range(num_generations):
 			# Calcular los valores de fitness para cada individuo y filtrar los inválidos
 			valid_population = [ind for ind in population if is_valid(ind[0], ind[1])]
 			fitness_scores = [fitness_function(ind[0], ind[1]) for ind in valid_population]
-
 			# Seleccionar y crear una nueva población
 			new_population = []
 			for _ in range(population_size // 2):
@@ -74,18 +70,18 @@ mutation_probability = 0.1
 
 # Ejercicio A
 # Función que queremos maximizar: 15x1 + 30x2 + 4x1x2 - 2x1^2 - 4x2^2
-def fitness_function(x1, x2):
+def fitness_function_A(x1, x2):
     return 15*x1 + 30*x2 + 4*x1*x2 - 2*x1**2 - 4*x2**2
 
 # Restricción: x1 + 2x2 <= 30
-def is_valid(x1, x2):
+def is_valid_A(x1, x2):
     return x1 + 2 * x2 <= 30
 
-best_individual = genetic_algorithm(population_size, num_generations, mutation_probability, is_valid, fitness_function)
+best_individual = genetic_algorithm(population_size, num_generations, mutation_probability, is_valid_A, fitness_function_A)
 print("Mejor solución encontrada A:")
 print("x1 =", best_individual[0])
 print("x2 =", best_individual[1])
-print("Valor de la función objetivo:", fitness_function(best_individual[0], best_individual[1]))
+print("Valor de la función objetivo:", fitness_function_A(best_individual[0], best_individual[1]))
 
 
 # Ejercicio B
