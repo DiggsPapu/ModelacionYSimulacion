@@ -3,8 +3,8 @@ import random
 
 # Función de inicialización de individuos
 def initialize_individual():
-		x1 = random.uniform(0, 15)  # x1 está en el rango [0, 15]
-		x2 = random.uniform(0, 15)  # x2 está en el rango [0, 15]
+		x1 = random.uniform(0, 0)  # x1 está en el rango [0, 15]
+		x2 = random.uniform(0, 0)  # x2 está en el rango [0, 15]
 		return x1, x2
 
 # Función de selección de padres (selección de torneo)
@@ -88,32 +88,33 @@ print("x2 =", best_individual[1])
 print("Valor de la función objetivo:", fitness_function(best_individual[0], best_individual[1]))
 
 
-# Ejercicio B - NO CONVERGE
+# Ejercicio B
 # Función que queremos maximizar: 3x + 5y
-def fitness_function(x, x2):
-		return 3*x + 5*x2
+def fitness_function_b(x1, x2):
+		return 3*x1 + 5*x2
 
 # Restricciones: 3x1 + 2x2 <= 18, x1 >=0, x2 >= 0
-def is_valid(x1, x2):
-		return 3*x1 + 2*x2 <= 18 and x1 >= 0 and x2 >= 0
+def is_valid_b(x1, x2):
+		return (((3*x1) + (2*x2)) <= 18) and x1 >= 0 and x2 >= 0
 
-num_generations = 100
-# best_individual = genetic_algorithm(population_size, num_generations, mutation_probability, is_valid, fitness_function)
-# print("Mejor solución encontrada B:")
-# print("x1 =", best_individual[0])
-# print("x2 =", best_individual[1])
-# print("Valor de la función objetivo:", fitness_function(best_individual[0], best_individual[1]))
+num_generations = 10000
+population_size = 100
+best_individual = genetic_algorithm(population_size, num_generations, mutation_probability, is_valid_b, fitness_function_b)
+print("Mejor solución encontrada B:")
+print("x1 =", best_individual[0])
+print("x2 =", best_individual[1])
+print("Valor de la función objetivo:", fitness_function_b(best_individual[0], best_individual[1]))
 
-# Ejercicio C
+# # Ejercicio C
 # Función que queremos maximizar: 5x1-x1^2+8x2-2x2^2
 def fitness_function(x1, x2):
 		return 5*x1 - x1**2 + 8*x2 - 2*x2**2
 
 # Restricciones: 3x1 + 2x2 <= 6
 def is_valid(x1, x2):
-		return 3*x1 + 2*x2 <= 6
+		return 3*x1 + 2*x2 <= 6 and x1 >=0 and x2 >= 0
 
-num_generations = 1000
+num_generations = 100
 population_size = 100
 best_individual = genetic_algorithm(population_size, num_generations, mutation_probability, is_valid, fitness_function)
 print("Mejor solución encontrada C:")
