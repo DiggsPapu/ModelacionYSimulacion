@@ -10,7 +10,7 @@ def f2(x, y):
     return (0.5 * (-x - y) + 1, 0.5 * (x - y))
 
 # Punto inicial
-x, y = 0, 0
+x, y = 0,-1
 
 # Número de iteraciones
 num_iteraciones = 1000000
