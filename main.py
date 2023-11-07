@@ -65,7 +65,7 @@ def monte_carlo_probability(num_samples):
     count = 0
     for _ in range(num_samples):
         x = exponential_rv(1)
-        y = exponential_rv(x)
+        y = exponential_rv(1/x)
         if x * y <= 3:
             count += 1
     probability = count / num_samples
